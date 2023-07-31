@@ -122,10 +122,11 @@ class HBNBCommand(cmd.Cmd):
         list_args = args.split()
         class_name = list_args[0]
 
-        if class_name not in self.classes:
+        if list_args[0] not in self.classes:
             print("** class doesn't exist **")
             return
 
+        dictionary = {}
         for arg in list_args[1:]:
             k, v = arg.split("=")
             v = v.strip('"')
@@ -135,8 +136,10 @@ class HBNBCommand(cmd.Cmd):
                 v = int(v)
             else:
                 v = v.replace("_", " ").replace('\\"', '"')
+            dictionary[k] = v
 
         new_instance = self.classes[class_name](v)
+        new_instance.__dict__.update(dictionary)
         storage.new(new_instance)
         storage.save()
         print(new_instance.id)
