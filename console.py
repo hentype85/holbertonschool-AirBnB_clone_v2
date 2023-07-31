@@ -136,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
                 dictionary[k] = int(v)
             else:
                 v = v.replace("_", " ")
-                dictionary[k] = v
+                dictionary[k] = v.strip('"\'')
 
         new_instance = self.classes[class_name](**dictionary)
         storage.new(new_instance)
