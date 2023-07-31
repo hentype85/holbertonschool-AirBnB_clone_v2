@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         list_args = args.split()
         class_name = list_args[0]
 
-        if class_name not in self.classes:
+        if list_args[0] not in self.classes:
             print("** class doesn't exist **")
             return
 
@@ -131,14 +131,15 @@ class HBNBCommand(cmd.Cmd):
             k, v = arg.split("=")
             v = v.strip('"')
             if v is type(float):
-                dictionary[k] = float(v)
+                v = float(v)
             elif v is type(int):
-                dictionary[k] = int(v)
+                v = int(v)
             else:
                 v = v.replace("_", " ").replace('\\"', '"')
-                dictionary[k] = v
+            dictionary[k] = v
 
-        new_instance = self.classes[class_name](**dictionary)
+        new_instance = self.classes[class_name](args.split()[0])
+        new_instance.__dict__.update(dictionary)
         storage.new(new_instance)
         storage.save()
         print(new_instance.id)
