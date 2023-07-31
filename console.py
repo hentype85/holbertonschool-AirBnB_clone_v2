@@ -73,8 +73,8 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] == '{' and \
-                            pline[-1] == '}' and type(eval(pline)) == dict:
+                    if pline[0] == '{' and pline[-1] == '}'\
+                            and type(eval(pline)) == dict:
                         _args = pline
                     else:
                         _args = pline.replace(',', '')
@@ -135,13 +135,13 @@ class HBNBCommand(cmd.Cmd):
             elif v is type(int):
                 dictionary[k] = int(v)
             else:
-                v = v.replace("_", " ")
-                v = v.replace('\\"', '"')
+                v = v.replace("_", " ").replace('\\"', '"')
+                dictionary[k] = v
 
         new_instance = self.classes[class_name](**dictionary)
+        storage.new(new_instance)
         storage.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
