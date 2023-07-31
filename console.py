@@ -136,11 +136,12 @@ class HBNBCommand(cmd.Cmd):
                 dictionary[k] = int(v)
             else:
                 v = v.replace("_", " ")
+                dictionary[k] = v
 
         new_instance = self.classes[class_name](**dictionary)
-        storage.save()    
-        print(new_instance.id)
+        storage.new(new_instance)
         storage.save()
+        print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
