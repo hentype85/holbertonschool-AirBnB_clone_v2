@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
                 v = v.replace("_", " ").replace('\\"', '"')
             dictionary[k] = v
 
-        new_instance = self.classes[class_name](args.split()[0])
+        new_instance = self.classes[class_name]()
         new_instance.__dict__.update(dictionary)
         storage.new(new_instance)
         storage.save()
