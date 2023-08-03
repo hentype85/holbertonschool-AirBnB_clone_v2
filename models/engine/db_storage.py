@@ -1,15 +1,14 @@
 #!/usr/bin/python3
 """DBStorage engine defined"""
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session
-from sqlalchemy.orm import sessionmaker
-from models.base_model import Base
-from models.amenity import Amenity
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
+from sqlalchemy.orm import scoped_session, sessionmaker
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.base_model import BaseModel, Base
 from os import getenv
 
 
@@ -47,7 +46,7 @@ class DBStorage:
 
     def new(self, obj):
         """add the object to the current database session"""
-        self.__session(obj)
+        self.__session.add(obj)
 
     def save(self):
         """commit all changes of the current database session"""
