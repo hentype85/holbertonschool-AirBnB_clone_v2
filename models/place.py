@@ -7,7 +7,6 @@ from models.review import Review
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 from sqlalchemy import Column, String, Integer, Float
-import models
 
 
 class Place(BaseModel, Base):
@@ -23,4 +22,3 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, default=0)
     latitude = Column(Float)
     longitude = Column(Float)
-
