@@ -213,10 +213,19 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            print_list.append(storage.all(HBNBCommand.classes[args]))
-        else:
-            print_list.append(storage.all())
 
+            class_name = HBNBCommand.classes[args]
+            objects = storage.all(class_name)
+
+            for k, v in objects.items():
+                print_list.append(
+                    "[{}] ({}) {}".format(args, v.id, v.__dict__))
+        else:
+            objects = storage.all()
+            for k, v in objects.items():
+                class_name = v.__class__.__name__
+                print_list.append(
+                    "[{}] ({}) {}".format(class_name, v.id, v.__dict__))
         print(print_list)
 
     def help_all(self):
