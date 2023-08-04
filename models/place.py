@@ -37,7 +37,7 @@ class Place(BaseModel, Base):
         """ returns the list of Review instances"""
         list_review = []
         for review in models.storage.all(models.Review).values():
-            if review.id == self.id:
+            if review.place_id == self.id:
                 list_review.append(review)
         return list_review
 
@@ -46,7 +46,7 @@ class Place(BaseModel, Base):
         """ returns the list of Amenity instances"""
         list_amenities = []
         for amenity in models.storage.all(Amenity).values():
-            if amenity.id == self.id:
+            if amenity.amenity_id == self.id:
                 list_amenities.append(amenity)
         return list_amenities
 
