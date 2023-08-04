@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
     # determines prompt for interactive/non-interactive modes
-    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
+    prompt = '(hbnb) '
 
     classes = {
                'BaseModel': BaseModel, 'User': User, 'Place': Place,
@@ -29,11 +29,6 @@ class HBNBCommand(cmd.Cmd):
              'max_guest': int, 'price_by_night': int,
              'latitude': float, 'longitude': float
             }
-
-    def preloop(self):
-        """Prints if isatty is false"""
-        if not sys.__stdin__.isatty():
-            print('(hbnb)')
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
@@ -85,12 +80,6 @@ class HBNBCommand(cmd.Cmd):
             pass
         finally:
             return line
-
-    def postcmd(self, stop, line):
-        """Prints if isatty is false"""
-        if not sys.__stdin__.isatty():
-            print('(hbnb) ', end='')
-        return stop
 
     def do_quit(self, command):
         """ Method to exit the HBNB console"""
@@ -224,10 +213,19 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            print_list.append(storage.all(HBNBCommand.classes[args]))
-        else:
-            print_list.append(storage.all())
 
+            class_name = HBNBCommand.classes[args]
+            objects = storage.all(class_name)
+
+            for k, v in objects.items():
+                print_list.append(
+                    "[{}] ({}) {}".format(args, v.id, v.__dict__))
+        else:
+            objects = storage.all()
+            for k, v in objects.items():
+                class_name = v.__class__.__name__
+                print_list.append(
+                    "[{}] ({}) {}".format(class_name, v.id, v.__dict__))
         print(print_list)
 
     def help_all(self):
