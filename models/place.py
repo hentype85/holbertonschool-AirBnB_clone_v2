@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from models.city import City
 from models.user import User
+from models.amenity import Amenity
 from sqlalchemy.orm import relationship
 from sqlalchemy import *
 import models
@@ -42,15 +43,18 @@ class Place(BaseModel, Base):
 
     @property
     def amenities(self):
-        """ returns the list of Amenity instances"""
-        list_amenities = []
-        for amenity in models.storage.all(models.Amenity).values():
-            if amenity.id == self.id:
-                list_amenities.append(amenity)
-        return list_amenities
+        """ returns the list of Amenity instances based on the attribute
+            amenity_ids that contains all Amenity.id linked to the Place"""
+        list_amenity = []
+        for amenity in models.storage.all(Amenity).values():
+            if amenity.id in self.amenity_ids:
+                list_amenity.append(amenity)
+        return list_amenity
 
     @amenities.setter
     def amenities(self, value):
-        """ set amenity_ids"""
-        if type(value) == models.Amenity:
+        """ handles append method for adding an Amenity.id to the 
+            attribute amenity_ids list. This method should accept only
+            Amenity object, otherwise, do nothing."""
+        if type(value) == Amenity:
             self.amenity_ids.append(value.id)
