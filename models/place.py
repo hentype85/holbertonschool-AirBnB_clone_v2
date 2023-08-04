@@ -24,12 +24,3 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
 
-    @property
-    def reviews(self):
-        """ returns the list of Review instances with 
-            place_id equals to the current Place.id"""
-        list = []
-        for review in models.storage.all(Review).values():
-            if self.id == review.place_id:
-                list.append(review)
-        return list
