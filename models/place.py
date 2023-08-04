@@ -3,7 +3,6 @@
 from models.base_model import BaseModel, Base
 from models.city import City
 from models.user import User
-from models.amenity import Amenity
 from sqlalchemy.orm import relationship
 from sqlalchemy import *
 import models
@@ -37,7 +36,7 @@ class Place(BaseModel, Base):
         """ returns the list of Review instances"""
         list_review = []
         for review in models.storage.all(models.Review).values():
-            if review.place_id == self.id:
+            if review.id == self.id:
                 list_review.append(review)
         return list_review
 
@@ -46,12 +45,12 @@ class Place(BaseModel, Base):
         """ returns the list of Amenity instances"""
         list_amenities = []
         for amenity in models.storage.all(models.Amenity).values():
-            if amenity.amenity_id == self.id:
+            if amenity.id == self.id:
                 list_amenities.append(amenity)
         return list_amenities
 
     @amenities.setter
     def amenities(self, value):
         """ set amenity_ids"""
-        if type(value) == Amenity:
+        if type(value) == models.Amenity:
             self.amenity_ids.append(value.id)
