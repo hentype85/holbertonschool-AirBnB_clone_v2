@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from models.city import City
-from models.user import User
-from models.amenity import Amenity
 from sqlalchemy.orm import relationship
 from sqlalchemy import *
 import models
@@ -18,8 +15,8 @@ Table(
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
-    city_id = Column(String(60), ForeignKey(City.id), nullable=False)
-    user_id = Column(String(60), ForeignKey(User.id), nullable=False)
+    city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(1024))
     number_rooms = Column(Integer, default=0)
@@ -34,27 +31,30 @@ class Place(BaseModel, Base):
 
     @property
     def reviews(self):
+        from models.review import Review
         """ returns the list of Review instances"""
         list_review = []
-        for review in models.storage.all(models.Review).values():
+        for review in models.storage.all(Review).values():
             if review.id == self.id:
                 list_review.append(review)
         return list_review
 
     @property
     def amenities(self):
+        from models.amenity import Amenity
         """ returns the list of Amenity instances based on the attribute
             amenity_ids that contains all Amenity.id linked to the Place"""
         list_amenity = []
-        for amenity in models.storage.all(models.Amenity).values():
+        for amenity in models.storage.all(Amenity).values():
             if amenity.id in self.amenity_ids:
                 list_amenity.append(amenity)
         return list_amenity
 
     @amenities.setter
     def amenities(self, value):
+        from models.amenity import Amenity
         """ handles append method for adding an Amenity.id to the 
             attribute amenity_ids list. This method should accept only
             Amenity object"""
-        if type(value) == models.Amenity:
+        if type(value) == Amenity:
             self.amenity_ids.append(value.id)
