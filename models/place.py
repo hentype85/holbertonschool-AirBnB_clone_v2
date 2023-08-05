@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from sqlalchemy import *
 import models
+from os import getenv
 
 Table(
     "place_amenity", Base.metadata,
@@ -26,35 +27,38 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
     reviews = relationship("Review", backref="place")
-    amenities = relationship("Amenity", secondary="place_amenity")
+    amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
     amenity_ids = []
 
-    @property
-    def reviews(self):
-        from models.review import Review
-        """ returns the list of Review instances"""
-        list_review = []
-        for review in models.storage.all(Review).values():
-            if review.id == self.id:
-                list_review.append(review)
-        return list_review
+    if getenv("HBNB_TYPE_STORAGE", None) != "db":
+        """for FileStorage"""
 
-    @property
-    def amenities(self):
-        from models.amenity import Amenity
-        """ returns the list of Amenity instances based on the attribute
-            amenity_ids that contains all Amenity.id linked to the Place"""
-        list_amenity = []
-        for amenity in models.storage.all(Amenity).values():
-            if amenity.id in self.amenity_ids:
-                list_amenity.append(amenity)
-        return list_amenity
+        @property
+        def reviews(self):
+            from models.review import Review
+            """ returns the list of Review instances"""
+            list_review = []
+            for review in models.storage.all(Review).values():
+                if review.id == self.id:
+                    list_review.append(review)
+            return list_review
 
-    @amenities.setter
-    def amenities(self, value):
-        from models.amenity import Amenity
-        """ handles append method for adding an Amenity.id to the 
-            attribute amenity_ids list. This method should accept only
-            Amenity object"""
-        if type(value) == Amenity:
-            self.amenity_ids.append(value.id)
+        @property
+        def amenities(self):
+            from models.amenity import Amenity
+            """ returns the list of Amenity instances based on the attribute
+                amenity_ids that contains all Amenity.id linked to the Place"""
+            list_amenity = []
+            for amenity in models.storage.all(Amenity).values():
+                if amenity.id in self.amenity_ids:
+                    list_amenity.append(amenity)
+            return list_amenity
+
+        @amenities.setter
+        def amenities(self, value):
+            from models.amenity import Amenity
+            """ handles append method for adding an Amenity.id to the 
+                attribute amenity_ids list. This method should accept only
+                Amenity object"""
+            if type(value) == Amenity:
+                self.amenity_ids.append(value.id)
