@@ -46,7 +46,7 @@ class Place(BaseModel, Base):
         """ returns the list of Amenity instances based on the attribute
             amenity_ids that contains all Amenity.id linked to the Place"""
         list_amenity = []
-        for amenity in models.storage.all(Amenity).values():
+        for amenity in models.storage.all(models.Amenity).values():
             if amenity.id in self.amenity_ids:
                 list_amenity.append(amenity)
         return list_amenity
@@ -56,5 +56,5 @@ class Place(BaseModel, Base):
         """ handles append method for adding an Amenity.id to the 
             attribute amenity_ids list. This method should accept only
             Amenity object"""
-        if type(value) == Amenity:
+        if type(value) == models.Amenity:
             self.amenity_ids.append(value.id)
