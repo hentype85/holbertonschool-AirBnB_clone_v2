@@ -15,10 +15,11 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+        from models.city import City
         """ returns the list of City instances with state_id 
             equals to the current State.id"""
         list_city = []
-        for city in models.storage.all(models.City).values():
+        for city in models.storage.all(City).values():
             if city.state.id == self.id:
                 list_city.append(city)
         return list_city
