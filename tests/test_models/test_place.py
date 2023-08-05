@@ -67,3 +67,19 @@ class test_Place(test_basemodel):
         """ """
         new = self.value()
         self.assertEqual(type(new.amenity_ids), list)
+
+    def test_reviews_relationship(self):
+        from models.review import Review
+        """Test if the relationship between Place and Review works."""
+        new_place = Place()
+        new_review = Review()
+        new_place.reviews.append(new_review)
+        self.assertEqual(new_review.place, new_place)
+
+    def test_amenities_relationship(self):
+        from models.amenity import Amenity
+        """Test if the relationship between Place and Amenity works."""
+        new_place = Place()
+        new_amenity = Amenity()
+        new_place.amenities.append(new_amenity)
+        self.assertIn(new_amenity, new_place.amenities)
