@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 """ script that starts a Flask web application
+
+    python3 -m web_flask.6-number_odd_or_even
+    curl 0.0.0.0:5000/number_odd_or_even/89 ; echo ""
+    curl 0.0.0.0:5000/number_odd_or_even/32 ; echo ""
+    curl 0.0.0.0:5000/number_odd_or_even/python
 """
 from flask import Flask
 from flask import render_template
@@ -37,7 +42,7 @@ def route_number(n):
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def route_HTML(n):
-    return render_template("5-number_template.html", n=n)
+    return render_template("5-number.html", n=n)
 
 
 @app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
