@@ -1,10 +1,5 @@
 #!/usr/bin/python3
 """ script that starts a Flask web application
-
-    python3 -m web_flask.5-number_template
-    curl 0.0.0.0:5000/number_template/89 ; echo ""
-    curl 0.0.0.0:5000/number_template/8.9
-    curl 0.0.0.0:5000/number_template/python
 """
 from flask import Flask
 from flask import render_template
@@ -43,6 +38,15 @@ def route_number(n):
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def route_HTML(n):
     return render_template("5-number_template.html", n=n)
+
+
+@app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
+def route_HTML(n):
+    if n % 2 == 0:
+        txt = "even"
+    else:
+        txt = "odd"
+    return render_template("6-number_odd_or_even.html", n=n, txt=txt)
 
 
 if __name__ == "__main__":
