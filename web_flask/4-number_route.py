@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """ script that starts a Flask web application
 
-    python3 -m web_flask.3-python_route
-    curl -Ls 0.0.0.0:5000/python/is_magic ; echo "" | cat -e
-    curl -Ls 0.0.0.0:5000/python ; echo "" | cat -e
-    curl -Ls 0.0.0.0:5000/python/ ; echo "" | cat -e
+    python3 -m web_flask.4-number_route
+    curl 0.0.0.0:5000/number/8.9
+    curl 0.0.0.0:5000/number/python
 """
 from flask import Flask
 
@@ -34,6 +33,9 @@ def route_Python_(text):
     return "Python {}".format(text.replace("_", " "))
 
 
+@app.route("/number/<int:n>", strict_slashes=False)
+def route_number(n):
+    return "{:d} is a number".format(n)
 
 
 if __name__ == "__main__":
