@@ -46,7 +46,7 @@ def route_HTML(n):
 
 
 @app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
-def route_HTML(n):
+def route_HTML_odd_or_even(n):
     if n % 2 == 0:
         txt = "even"
     else:
