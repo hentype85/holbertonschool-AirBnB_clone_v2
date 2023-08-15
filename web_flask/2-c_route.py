@@ -23,7 +23,7 @@ def route_HBNB():
 
 
 @app.route("/c/<text>", strict_slashes=False)
-def route_C(text):
+def route_C_(text):
     return "C {}".format(text.replace("_", " "))
 
 
