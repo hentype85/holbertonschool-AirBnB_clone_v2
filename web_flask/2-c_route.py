@@ -12,20 +12,17 @@ app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def hello_route():
-    """home"""
+def route_0():
     return "Hello HBNB!"
 
 
 @app.route("/hbnb", strict_slashes=False)
-def index():
-    """route /hbnb"""
+def route_1():
     return "HBNB"
 
 
 @app.route("/c/<text>", strict_slashes=False)
-def Cisfun(text):
-    """route /C/"""
+def route_2(text):
     return "C {}".format(text.replace("_", " "))
 
 
