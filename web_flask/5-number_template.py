@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """ script that starts a Flask web application
 
-    python3 -m web_flask.4-number_route
-    curl 0.0.0.0:5000/number/8.9
-    curl 0.0.0.0:5000/number/python
+    python3 -m web_flask.5-number_template
+    curl 0.0.0.0:5000/number_template/89 ; echo ""
+    curl 0.0.0.0:5000/number_template/8.9
+    curl 0.0.0.0:5000/number_template/python
 """
 from flask import Flask
+from flask import render_template
 
 
 app = Flask(__name__)
@@ -36,6 +38,11 @@ def route_Python_(text):
 @app.route("/number/<int:n>", strict_slashes=False)
 def route_number(n):
     return "{:d} is a number".format(n)
+
+
+@app.route("/number_template/<int:n>", strict_slashes=False)
+def route_HTML(n):
+    return render_template("5-number.html", n=n)
 
 
 if __name__ == "__main__":
