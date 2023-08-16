@@ -2,7 +2,7 @@
 """ script that starts a Flask web application
 
     defines routes to handle specific urls
-    fetching data from the storage engine
+    etching data from the storage engine
 """
 from flask import Flask
 from flask import render_template
