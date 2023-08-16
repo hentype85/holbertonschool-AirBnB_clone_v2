@@ -9,6 +9,8 @@
 """
 from flask import Flask
 from flask import render_template
+import models
+from models.state import State
 
 
 app = Flask(__name__)
@@ -16,14 +18,11 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown(self):
-    import models
     models.storage.close()
 
 
 @app.route("/states_list", strict_slashes=False)
 def states_list():
-    import models
-    from models.state import State
     dict_states = models.storage.all(State)
     stateslist = []
     for k, v in dict_states.items():
