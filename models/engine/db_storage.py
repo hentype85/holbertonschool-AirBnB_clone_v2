@@ -29,8 +29,8 @@ class DBStorage:
             Base.metadata.drop(self.__engine)            
 
     def all(self, cls=None):
-        """query on the current database session (self.__session)
-        all objects depending of the class name"""
+        """ query on the current database session (self.__session)
+            all objects depending of the class name"""
         all_classes = [State, City, User, Place, Review, Amenity]
 
         if cls is None:
