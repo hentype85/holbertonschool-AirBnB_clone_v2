@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 
 @app.route('/cities_by_states', strict_slashes=False)
-def states_list():
+def cities_by_states():
     d_states = models.storage.all(State)
     return render_template("8-cities_by_states.html", stateslist=d_states.values())
 
