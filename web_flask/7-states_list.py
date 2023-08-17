@@ -2,8 +2,6 @@
 """ script that starts a Flask web application
     defines routes to handle specific urls
     etching data from the storage engine
-
-    cat 7-dump.sql | mysql -uroot -p
 """
 from flask import Flask
 from flask import render_template
