@@ -12,8 +12,6 @@ from models.state import State
 
 app = Flask(__name__)
 
-d_states = models.storage.all(State)
-print(d_states.values())
 
 @app.teardown_appcontext
 def teardown(self):
@@ -23,7 +21,8 @@ def teardown(self):
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     d_states = models.storage.all(State)
-    return render_template("7-states_list.html", stateslist=d_states.values())
+    stateslist = sorted(d_states.values())
+    return render_template("7-states_list.html", stateslist=stateslist)
 
 
 if __name__ == "__main__":
