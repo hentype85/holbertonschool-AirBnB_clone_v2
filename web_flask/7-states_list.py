@@ -23,8 +23,8 @@ def teardown(self):
 
 @app.route("/states_list", strict_slashes=False)
 def states_list():
-    dict_states = models.storage.all(State)
-    return render_template("7-states_list.html", stateslist=dict_states.values())
+    d_states = models.storage.all(State)
+    return render_template("7-states_list.html", stateslist=d_states.values())
 
 
 if __name__ == "__main__":
