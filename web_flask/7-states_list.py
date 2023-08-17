@@ -24,7 +24,7 @@ def teardown(self):
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     d_states = models.storage.all(State)
-    return render_template("7-states_list.html", stateslist=d_states.values())
+    return render_template("7-states_list.html", stateslist=d_states.values(), mode="all")
 
 
 if __name__ == "__main__":
