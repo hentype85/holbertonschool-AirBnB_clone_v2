@@ -4,26 +4,27 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-        {% if id in states_id_list %}
-        {% for s in stateslist if s.id == id %}
-
-        <H1>State: {{ s.name }}</H1>
-
-        <H1>Cities</H1>
+        {% if found_states %} <!--if-->
+        {% for f_state in found_states%}
+        <H1>State: {{ f_state.name }}</H1>
+        <H3>Cities:</H3>
         <UL>
-            {% for c in s.cities %}
-            <LI>{{ c.name }}</LI>
+            {% for city in f_state.cities | sort(attribute='name') %}
+            <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
             {% endfor %}
         </UL>
+        {%- endfor %}
 
+        {% elif id is undefined %}<!--else if-->
         <H1>States</H1>
         <UL>
-            {% for st in stateslist %}
-            <LI>{{ st.name }}</LI>
+            {% for state in stateslist | sort(attribute="name") %}
+            <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
             {% endfor %}
         </UL>
 
-        {% endfor %}
+        {% else %}<!--else-->
+        <H1>Not found!</H1>
         {% endif %}
     </BODY>
 </HTML>

@@ -23,15 +23,14 @@ def list_states():
 
 
 @app.route("/states/<id>", strict_slashes=False)
-def found_with_id(id):
+def list_states_id(id):
     stateslist = models.storage.all(State).values()
-    states_id_list = []
+    found_states = []
     for state in stateslist:
-        states_id_list.append(state.id)
-    return render_template("9-states.html",
-                           stateslist=stateslist,
-                           states_id_list=states_id_list,
-                           id=id)
+        if state.id == id:
+            found_states.append(state)
+    return render_template("9-states.html", stateslist=stateslist,
+                           found_states=found_states, id=id)
 
 
 @app.teardown_appcontext

@@ -2,6 +2,8 @@
 """ script that starts a Flask web application
     defines routes to handle specific urls
     fetching data from the storage engine
+
+    curl 0.0.0.0:5000/cities_by_states ; echo ""
 """
 from flask import Flask
 from flask import render_template
