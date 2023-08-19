@@ -3,12 +3,11 @@
 ## pip3 install Flask
 
 ### use hbnb_dev_db database 
-```
-1 - start mysql service: 
-2 - sudo service mysql start 
-3 - DROP DATABASE IF EXISTS hbnb_dev_db; 
-4 - cat setup_mysql_dev.sql | mysql -hlocalhost -uroot -p  
-5 - HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./main_place_amenities.py 
+``` 
+1 - sudo service mysql start 
+2 - DROP DATABASE IF EXISTS hbnb_dev_db; 
+3 - cat setup_mysql_dev.sql | mysql -hlocalhost -uroot -p  
+4 - HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./main_place_amenities.py 
 
 ```
 usage with scripts: 
